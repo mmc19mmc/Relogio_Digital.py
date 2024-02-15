@@ -1,0 +1,52 @@
+from tkinter import *
+import tkinter
+from datetime import datetime
+
+##### Cores usadas #######
+cor1 = "#3d3d3d"  # preta
+cor2 = "#fafcff"  # branca
+cor3 = "#21c25c"  # verde
+cor4 = "#eb463b"  # vermelha
+cor5 = "#dedcdc"  # cinza
+cor6 = "#3080f0"  # azul
+
+fundo = cor1
+cor = cor2
+
+# Criando a janela principal
+janela = Tk()
+janela.title("")
+janela.geometry("440x180")
+janela.resizable(width=FALSE, height=FALSE)
+janela.configure(bg=cor1)
+
+# Função para atualizar o relógio
+def relogio():
+    tempo = datetime.now()
+
+    # Formatando a hora
+    hora = tempo.strftime("%H:%M:%S")
+    # Obtendo informações de data
+    dia_semana = tempo.strftime("%a")
+    dia = tempo.day
+    mes = tempo.strftime("%b")
+    ano = tempo.strftime("%y")
+
+    # Atualizando os textos dos Labels
+    l1.config(text=hora)
+    l1.after(200, relogio)  # Chamando a função novamente a cada 200ms para manter o relógio atualizado
+    l2.config(text=dia_semana + " " + str(dia) + "/" + str(mes) + "/" + str(ano))
+
+# Criando o primeiro Label para exibir a hora
+l1 = Label(janela, text="", font=("Arial", 80), bg=fundo, fg=cor)
+l1.grid(row=0, column=0, sticky=NW, padx=5)
+
+# Criando o segundo Label para exibir a data
+l2 = Label(janela, text="", font=("Arial", 20), bg=fundo, fg=cor)
+l2.grid(row=1, column=0, sticky=NW, padx=5)
+
+# Chamando a função para iniciar o relógio
+relogio()
+
+# Iniciando o loop principal da interface gráfica
+janela.mainloop()
